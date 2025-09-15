@@ -4,6 +4,53 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Language = 'fi' | 'en';
 
+type Translations = {
+  navigation: {
+    about: string;
+    menu: string;
+    contact: string;
+  };
+  hero: {
+    title: string;
+    subtitle: string;
+    english: string;
+  };
+  about: {
+    title: string;
+    description: string;
+    coffee: string;
+    coffeeDesc: string;
+    wine: string;
+    wineDesc: string;
+    food: string;
+    foodDesc: string;
+    atmosphere: string;
+    atmosphereDesc: string;
+  };
+  gallery: {
+    title: string;
+  };
+  food: {
+    title: string;
+    subtitle: string;
+    description: string;
+    bread: string;
+    breadDesc: string;
+    desserts: string;
+    dessertsDesc: string;
+  };
+  contact: {
+    title: string;
+    address: string;
+    city: string;
+    instagram: string;
+    map: string;
+  };
+  footer: {
+    copyright: string;
+  };
+};
+
 interface TranslationContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
@@ -16,7 +63,7 @@ const TranslationContext = createContext<TranslationContextType | undefined>(und
 const detectLanguage = (): Language => {
   if (typeof window === 'undefined') return 'fi'; // Default to Finnish on server
   
-  const browserLang = navigator.language || (navigator as any).userLanguage;
+  const browserLang = navigator.language || (navigator as { userLanguage?: string }).userLanguage || 'en';
   
   // Check if Finnish
   if (browserLang.startsWith('fi')) {
@@ -29,7 +76,7 @@ const detectLanguage = (): Language => {
 
 export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('fi');
-  const [translations, setTranslations] = useState<any>({});
+  const [translations, setTranslations] = useState<Translations | null>(null);
 
   // Load translations
   useEffect(() => {
@@ -40,8 +87,8 @@ export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ c
         setTranslations(data);
       } catch (error) {
         console.error('Failed to load translations:', error);
-        // Fallback to empty object
-        setTranslations({});
+        // Fallback to null
+        setTranslations(null);
       }
     };
 
@@ -56,12 +103,14 @@ export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   // Translation function
   const t = (key: string): string => {
+    if (!translations) return key; // Return key if translations not loaded
+    
     const keys = key.split('.');
-    let value = translations;
+    let value: unknown = translations;
     
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
-        value = value[k];
+        value = (value as Record<string, unknown>)[k];
       } else {
         return key; // Return key if translation not found
       }
