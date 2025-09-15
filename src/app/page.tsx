@@ -121,21 +121,23 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-3 sm:px-6">
           {/* Mobile Layout */}
           <div className="md:hidden space-y-4">
-            <div className="text-center">
+            <div className="max-w-[70%]">
               <h3 className="text-base font-light mb-2 tracking-wide">{t('about.title')}</h3>
-              <div className="w-6 h-px bg-[#A64845] mx-auto mb-2"></div>
+              <div className="w-6 h-px bg-[#A64845] mb-2"></div>
               <p className="leading-tight" style={{ fontSize: '0.65rem' }}>
                 {t('about.description')}
               </p>
             </div>
             
-            <div className="w-full aspect-square relative overflow-hidden max-w-sm mx-auto">
-              <Image
-                src="/cafe-noosi-tiski.jpg"
-                alt="Cafe Noosi Counter"
-                fill
-                className="object-cover"
-              />
+            <div className="flex justify-end">
+              <div className="w-[70%] aspect-square relative overflow-hidden">
+                <Image
+                  src="/cafe-noosi-tiski.jpg"
+                  alt="Cafe Noosi Counter"
+                  fill
+                  className="object-cover"
+                />
+              </div>
             </div>
           </div>
           
