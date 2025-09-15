@@ -1,0 +1,46 @@
+{
+  "navigation": {
+    "about": "Tietoa",
+    "menu": "Menu",
+    "contact": "Yhteystiedot"
+  },
+  "hero": {
+    "title": "1960-70 -lukujen modernismia",
+    "subtitle": "1960-70 -lukujen modernismia sekä bauhausin funktionalismia kanavoiva tamperelaiskahvila",
+    "english": "A Tampere café channeling 1960s-70s modernism and Bauhaus functionalism. Welcome for coffee or wine, brulee or kekkeruusi, sandwich or traditional pöperö with a new wave take."
+  },
+  "about": {
+    "title": "MODERNISMIA & FUNKTIONALISMIA",
+    "description": "Tervetuloa kahville tai viinille, bryleelle tai kekkeruusille, leivälle tai uuden aallon pöperöille.",
+    "coffee": "KAHVI",
+    "coffeeDesc": "Hyvä kahvi",
+    "wine": "VIINI",
+    "wineDesc": "Viiniä tarjolla",
+    "food": "RUOKA",
+    "foodDesc": "Ruokaa ja leipää",
+    "atmosphere": "TUNNELMA",
+    "atmosphereDesc": "Rauhallinen ympäristö"
+  },
+  "gallery": {
+    "title": "TILA & MUOTOILU"
+  },
+  "food": {
+    "title": "RUOKA & JUOMAT",
+    "subtitle": "PERINTEINEN MODERNILLA TWISTILLÄ",
+    "description": "Tuore leipä ja herkulliset jälkiruoat.",
+    "bread": "LEIPÄ",
+    "breadDesc": "Tuore leipä",
+    "desserts": "JÄLKIRUOAT",
+    "dessertsDesc": "Herkulliset jälkiruoat"
+  },
+  "contact": {
+    "title": "TULE KÄYMÄÄN",
+    "address": "SATAKUNNANKATU 7 B 22",
+    "city": "33100 TAMPERE",
+    "instagram": "Instagram",
+    "map": "Kartta"
+  },
+  "footer": {
+    "copyright": "© 2025 CAFE NOOSI"
+  }
+}

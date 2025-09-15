@@ -1,0 +1,46 @@
+{
+  "navigation": {
+    "about": "About",
+    "menu": "Menu",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "1960s-70s Modernism",
+    "subtitle": "A Tampere café channeling 1960s-70s modernism and Bauhaus functionalism.",
+    "english": "A Tampere café channeling 1960s-70s modernism and Bauhaus functionalism. Welcome for coffee or wine, brulee or kekkeruusi, sandwich or traditional pöperö with a new wave take."
+  },
+  "about": {
+    "title": "MODERNISM & FUNCTIONALISM",
+    "description": "Welcome for coffee or wine, brulee or kekkeruusi, sandwich or traditional pöperö with a new wave take.",
+    "coffee": "COFFEE",
+    "coffeeDesc": "Good coffee",
+    "wine": "WINE",
+    "wineDesc": "Wine available",
+    "food": "FOOD",
+    "foodDesc": "Food and bread",
+    "atmosphere": "ATMOSPHERE",
+    "atmosphereDesc": "Peaceful environment"
+  },
+  "gallery": {
+    "title": "SPACE & DESIGN"
+  },
+  "food": {
+    "title": "FOOD & DRINKS",
+    "subtitle": "TRADITIONAL WITH A MODERN TWIST",
+    "description": "Fresh bread and delicious desserts.",
+    "bread": "BREAD",
+    "breadDesc": "Fresh bread",
+    "desserts": "DESSERTS",
+    "dessertsDesc": "Delicious desserts"
+  },
+  "contact": {
+    "title": "VISIT US",
+    "address": "SATAKUNNANKATU 7 B 22",
+    "city": "33100 TAMPERE",
+    "instagram": "Instagram",
+    "map": "Map"
+  },
+  "footer": {
+    "copyright": "© 2025 CAFE NOOSI"
+  }
+}
