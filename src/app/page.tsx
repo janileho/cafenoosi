@@ -22,7 +22,7 @@ export default function Home() {
             <div className="flex items-center space-x-4 sm:space-x-8">
               <nav className="hidden md:flex space-x-8">
                 <a href="#about" className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors">{t('navigation.about')}</a>
-                <a href="#menu" className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors">{t('navigation.menu')}</a>
+                    <a href="#gallery" className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors">{t('navigation.menu')}</a>
                 <a href="#contact" className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors">{t('navigation.contact')}</a>
               </nav>
               
@@ -69,13 +69,13 @@ export default function Home() {
                 >
                   {t('navigation.about')}
                 </a>
-                <a 
-                  href="#menu" 
-                  className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {t('navigation.menu')}
-          </a>
+                    <a 
+                      href="#gallery" 
+                      className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {t('navigation.menu')}
+                    </a>
           <a
                   href="#contact" 
                   className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors"
@@ -168,7 +168,7 @@ export default function Home() {
       </section>
 
       {/* Gallery Section */}
-      <section className="py-8 sm:py-20 bg-gray-50">
+      <section id="gallery" className="py-8 sm:py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-3 sm:px-6">
            <div className="text-center mb-6 sm:mb-16">
              <h3 className="text-xl sm:text-3xl font-light mb-3 sm:mb-6 tracking-wide">{t('gallery.title')}</h3>
