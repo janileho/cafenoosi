@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Noosi - Modern Web App",
-  description: "A beautiful and modern Next.js application built with TypeScript and Tailwind CSS",
+  title: "Cafe Nöösi",
+  description: "1960-70 -lukujen modernismia sekä bauhausin funktionalismia kanavoiva tamperelaiskahvila.",
 };
 
 export default function RootLayout({

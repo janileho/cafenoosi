@@ -55,6 +55,7 @@ interface TranslationContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
+  isLoaded: boolean;
 }
 
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
@@ -77,18 +78,22 @@ const detectLanguage = (): Language => {
 export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('fi');
   const [translations, setTranslations] = useState<Translations | null>(null);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   // Load translations
   useEffect(() => {
     const loadTranslations = async () => {
       try {
+        setIsLoaded(false);
         const response = await fetch(`/translations/${language}.json`);
         const data = await response.json();
         setTranslations(data);
+        setIsLoaded(true);
       } catch (error) {
         console.error('Failed to load translations:', error);
         // Fallback to null
         setTranslations(null);
+        setIsLoaded(true);
       }
     };
 
@@ -120,7 +125,7 @@ export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ c
   };
 
   return (
-    <TranslationContext.Provider value={{ language, setLanguage, t }}>
+    <TranslationContext.Provider value={{ language, setLanguage, t, isLoaded }}>
       {children}
     </TranslationContext.Provider>
   );

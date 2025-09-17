@@ -36,3 +36,40 @@ body {
 .golden-ratio {
   aspect-ratio: var(--golden-ratio);
 }
+
+/* Animations (mobile-friendly, respects reduced motion) */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-fade-in {
+  opacity: 0;
+  animation: fadeIn 600ms ease-out forwards;
+}
+
+.animate-slide-up {
+  opacity: 0;
+  animation: slideUp 700ms ease-out forwards;
+}
+
+/* Stagger helpers */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Respect user preference */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-slide-up {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
