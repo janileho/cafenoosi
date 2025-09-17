@@ -22,7 +22,7 @@ export default function Home() {
             <div className="flex items-center space-x-4 sm:space-x-8">
               <nav className="hidden md:flex space-x-8">
                 <a href="#about" className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors">{t('navigation.about')}</a>
-                    <a href="#gallery" className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors">{t('navigation.menu')}</a>
+                    <a href="#gallery" className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors">{t('navigation.gallery')}</a>
                 <a href="#contact" className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors">{t('navigation.contact')}</a>
               </nav>
               
@@ -74,7 +74,7 @@ export default function Home() {
                       className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      {t('navigation.menu')}
+                      {t('navigation.gallery')}
                     </a>
           <a
                   href="#contact" 
@@ -244,7 +244,7 @@ export default function Home() {
              <div className="py-6 sm:py-8">
                <div className="w-40 h-40 sm:w-64 sm:h-64 mx-auto relative">
           <Image
-                   src="/noosi_logo_big.jpg"
+                   src="/noosi_logo_big.JPG"
                    alt="Cafe Noosi Logo"
                    fill
                    className="object-contain"

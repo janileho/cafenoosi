@@ -2,6 +2,7 @@
   "navigation": {
     "about": "Tietoa",
     "menu": "Menu",
+    "gallery": "Galleria",
     "contact": "Yhteystiedot"
   },
   "hero": {
@@ -22,7 +23,7 @@
     "atmosphereDesc": "Rauhallinen ympäristö"
   },
   "gallery": {
-    "title": "TILA & MUOTOILU"
+    "title": "GALLERIA"
   },
   "food": {
     "title": "RUOKA & JUOMAT",

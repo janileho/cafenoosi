@@ -2,6 +2,7 @@
   "navigation": {
     "about": "About",
     "menu": "Menu",
+    "gallery": "Gallery",
     "contact": "Contact"
   },
   "hero": {
@@ -22,7 +23,7 @@
     "atmosphereDesc": "Peaceful environment"
   },
   "gallery": {
-    "title": "SPACE & DESIGN"
+    "title": "GALLERY"
   },
   "food": {
     "title": "FOOD & DRINKS",
