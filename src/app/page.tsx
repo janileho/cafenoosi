@@ -474,7 +474,7 @@ export default function Home() {
           {/* Modal panel with accent line and soft gradient */}
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative bg-white/95 max-w-md w-full p-6 rounded-none border border-[#EEC156]/50 shadow-2xl overflow-hidden transform transition-all duration-300 animate-slide-up"
+            className="relative bg-white max-w-md w-full p-6 rounded-none border border-[#EEC156]/50 shadow-2xl overflow-hidden transform transition-all duration-300 animate-slide-up"
           >
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-lg font-light tracking-wide">{t('contact.contact')}</h3>
