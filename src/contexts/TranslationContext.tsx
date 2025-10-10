@@ -45,10 +45,18 @@ type Translations = {
     city: string;
     instagram: string;
     map: string;
+    send?: string;
+    sending?: string;
+    success?: string;
+    error?: string;
+    close?: string;
+    contact?: string;
   };
   footer: {
     copyright: string;
   };
+  // Legal pages (structure kept flexible)
+  legal?: Record<string, unknown>;
 };
 
 interface TranslationContextType {
@@ -85,7 +93,10 @@ export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ c
     const loadTranslations = async () => {
       try {
         setIsLoaded(false);
-        const response = await fetch(`/translations/${language}.json`);
+        const response = await fetch(`/translations/${language}.json`, {
+          cache: 'no-store',
+          headers: { 'Cache-Control': 'no-cache' }
+        });
         const data = await response.json();
         setTranslations(data);
         setIsLoaded(true);

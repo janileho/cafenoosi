@@ -39,9 +39,20 @@
     "address": "SATAKUNNANKATU 7 B 22",
     "city": "33100 TAMPERE",
     "instagram": "Instagram",
-    "map": "Kartta"
+    "map": "Kartta",
+    "send": "Lähetä",
+    "sending": "Lähetetään...",
+    "success": "Kiitos!",
+    "error": "Viestin lähetys epäonnistui. Yritä uudelleen.",
+    "close": "Sulje",
+    "contact": "Ota yhteyttä"
   },
   "footer": {
     "copyright": "© 2025 CAFE NOOSI"
+  },
+  "legal": {
+    "privacyTitle": "Tietosuojaseloste",
+    "updated": "Päivitetty",
+    "back": "Takaisin etusivulle"
   }
 }
