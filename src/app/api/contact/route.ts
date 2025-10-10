@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     const { data, error } = await resend.emails.send({
       from: 'Cafe Nöösi <noreply@deepsnowkelkat.com>', // Uses your verified domain
       to: ['lauri.haavikko@gmail.com'],
-      reply_to: email,
+      replyTo: email,
       subject: 'Yhteydenotto Cafe Nöösi sivustolta',
       html: `
         <div style="font-family: Arial, Helvetica, sans-serif; line-height: 1.5; color: #111;">
@@ -43,7 +43,9 @@ export async function POST(request: NextRequest) {
     });
 
     if (error) {
-      const message = (error as any)?.message ?? 'Failed to send email';
+      const message = (error instanceof Error && error.message)
+        ? error.message
+        : 'Failed to send email';
       console.error('Resend error:', error);
       return NextResponse.json(
         { error: message },
@@ -56,8 +58,10 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
 
-  } catch (error) {
-    const message = (error as Error)?.message ?? 'Internal server error';
+  } catch (error: unknown) {
+    const message = error instanceof Error && error.message
+      ? error.message
+      : 'Internal server error';
     console.error('Contact form error:', error);
     return NextResponse.json(
       { error: message },

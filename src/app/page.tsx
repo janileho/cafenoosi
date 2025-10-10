@@ -1,6 +1,7 @@
 'use client';
 
 import Image from "next/image";
+import Link from "next/link";
 import { useTranslation } from "@/contexts/TranslationContext";
 import { useState } from "react";
 
@@ -44,14 +45,16 @@ export default function Home() {
         setTimeout(() => setSubmitSuccess(false), 6000);
       } else {
         // Error handling (response may not always be valid JSON)
-        let errorData: any = null;
+        let errorData: unknown = null;
         try {
           errorData = await response.json();
         } catch {
           errorData = { error: await response.text() };
         }
-        const msg = errorData?.error || t('contact.error');
-        alert(msg as string);
+        const msg = (typeof errorData === 'object' && errorData !== null && 'error' in errorData)
+          ? (errorData as { error?: string }).error || t('contact.error')
+          : t('contact.error');
+        alert(String(msg));
         console.error('Form submission error:', errorData);
       }
     } catch (error) {
@@ -68,7 +71,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2 sm:py-4">
           <div className="flex items-center justify-between">
             {/* Left side - Brand logo */}
-            <a href="/" className="flex items-center">
+            <Link href="/" className="flex items-center" aria-label="Home">
               <Image
                 src="/cafe_noosi_topbar.JPG"
                 alt="Cafe Nöösi"
@@ -77,7 +80,7 @@ export default function Home() {
                 priority
                 className="h-6 sm:h-8 w-auto"
               />
-            </a>
+            </Link>
             
             {/* Right side - Navigation */}
             <div className="flex items-center space-x-4 sm:space-x-8">
@@ -455,7 +458,7 @@ export default function Home() {
          <div className="space-y-3">
            {isLoaded && <p className="text-sm tracking-wide animate-slide-up">{t('footer.copyright')}</p>}
            <div className="text-xs space-x-4">
-             <a href="/tietosuojaseloste" className="underline hover:text-[#EEC156]">Tietosuojaseloste</a>
+             <Link href="/tietosuojaseloste" className="underline hover:text-[#EEC156]">Tietosuojaseloste</Link>
            </div>
          </div>
       </footer>
