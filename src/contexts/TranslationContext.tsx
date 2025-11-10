@@ -7,37 +7,18 @@ type Language = 'fi' | 'en';
 type Translations = {
   navigation: {
     about: string;
-    menu: string;
+    gallery: string;
     contact: string;
   };
   hero: {
-    title: string;
-    subtitle: string;
-    english: string;
+    tagline: string;
   };
   about: {
     title: string;
     description: string;
-    coffee: string;
-    coffeeDesc: string;
-    wine: string;
-    wineDesc: string;
-    food: string;
-    foodDesc: string;
-    atmosphere: string;
-    atmosphereDesc: string;
   };
   gallery: {
     title: string;
-  };
-  food: {
-    title: string;
-    subtitle: string;
-    description: string;
-    bread: string;
-    breadDesc: string;
-    desserts: string;
-    dessertsDesc: string;
   };
   contact: {
     title: string;
@@ -45,18 +26,35 @@ type Translations = {
     city: string;
     instagram: string;
     map: string;
-    send?: string;
-    sending?: string;
-    success?: string;
-    error?: string;
-    close?: string;
-    contact?: string;
+    contact: string;
+    send: string;
+    sending: string;
+    success: string;
+    successMessage: string;
+    error: string;
+    close: string;
+    networkError: string;
+    hours: {
+      title: string;
+      friday: string;
+      saturday: string;
+      sunday: string;
+    };
+    form: {
+      name: string;
+      email: string;
+      message: string;
+    };
   };
   footer: {
     copyright: string;
   };
-  // Legal pages (structure kept flexible)
-  legal?: Record<string, unknown>;
+  legal: {
+    privacyTitle: string;
+    updated: string;
+    back: string;
+    link: string;
+  };
 };
 
 interface TranslationContextType {
@@ -69,22 +67,36 @@ interface TranslationContextType {
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
 
 // Simple language detection without Intl API
+const getLanguageFromUrl = (): Language | null => {
+  if (typeof window === 'undefined') return null;
+  const params = new URLSearchParams(window.location.search);
+  const lang = params.get('lang');
+  return lang === 'fi' || lang === 'en' ? lang : null;
+};
+
 const detectLanguage = (): Language => {
   if (typeof window === 'undefined') return 'fi'; // Default to Finnish on server
-  
+
+  const urlLang = getLanguageFromUrl();
+  if (urlLang) {
+    return urlLang;
+  }
+
   const browserLang = navigator.language || (navigator as { userLanguage?: string }).userLanguage || 'en';
-  
-  // Check if Finnish
+
   if (browserLang.startsWith('fi')) {
     return 'fi';
   }
-  
-  // Default to English for all other languages
+
   return 'en';
 };
 
 export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('fi');
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window === 'undefined') return 'fi';
+    const initial = getLanguageFromUrl();
+    return initial ?? detectLanguage();
+  });
   const [translations, setTranslations] = useState<Translations | null>(null);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -116,6 +128,17 @@ export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ c
     const detectedLang = detectLanguage();
     setLanguage(detectedLang);
   }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const url = new URL(window.location.href);
+    if (language === 'fi') {
+      url.searchParams.delete('lang');
+    } else {
+      url.searchParams.set('lang', language);
+    }
+    window.history.replaceState({}, '', url.toString());
+  }, [language]);
 
   // Translation function
   const t = (key: string): string => {

@@ -16,6 +16,7 @@ export default function Home() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const aboutDescription = isLoaded ? t('about.description') : '';
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -59,7 +60,7 @@ export default function Home() {
       }
     } catch (error) {
       console.error('Network error:', error);
-      alert('Verkkovirhe. Tarkista internetyhteytesi ja yritä uudelleen.');
+      alert(t('contact.networkError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -174,15 +175,15 @@ export default function Home() {
                  <Image
                    src="/noosi_naama_logo_transp.png"
                    alt="Cafe Nöösi Logo"
-                   width={300}
-                   height={300}
+                   width={540}
+                   height={540}
                    priority
-                   className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 mx-auto object-contain"
+                   className="w-48 h-48 sm:w-72 sm:h-72 md:w-[28rem] md:h-[28rem] mx-auto object-contain"
                  />
                </div>
                 <p className="text-xs sm:text-lg md:text-xl font-light leading-tight max-w-2xl md:max-w-3xl mx-auto animate-slide-up delay-200" style={{ fontSize: '0.7rem' }}>
-                   <span className="md:hidden italic">Tamperelaiskahvila hyppysellisellä bauhausia</span>
-                   <span className="hidden md:inline text-lg italic">Tamperelaiskahvila hyppysellisellä bauhausia</span>
+                   <span className="md:hidden">{t('hero.tagline')}</span>
+                   <span className="hidden md:inline text-lg">{t('hero.tagline')}</span>
                  </p>
               </div>
            )}
@@ -198,9 +199,11 @@ export default function Home() {
               <div className="max-w-[70%]">
                 <h3 className="text-base font-light mb-2 tracking-wide animate-slide-up">{t('about.title')}</h3>
                 <div className="w-10 h-1 bg-[#A64845] mb-2 animate-slide-up delay-100"></div>
-                <p className="leading-tight animate-slide-up delay-200" style={{ fontSize: '0.65rem' }}>
-                  {t('about.description')}
-                </p>
+                {aboutDescription && aboutDescription !== 'about.description' && (
+                  <p className="leading-tight animate-slide-up delay-200" style={{ fontSize: '0.65rem' }}>
+                    {aboutDescription}
+                  </p>
+                )}
               </div>
             )}
             
@@ -223,9 +226,11 @@ export default function Home() {
                 <div>
                   <h3 className="text-3xl font-light mb-6 tracking-wide animate-slide-up">{t('about.title')}</h3>
                   <div className="w-24 h-1 bg-[#A64845] mb-8 animate-slide-up delay-100"></div>
-                  <p className="text-lg leading-relaxed animate-slide-up delay-200">
-                    {t('about.description')}
-                  </p>
+                  {aboutDescription && aboutDescription !== 'about.description' && (
+                    <p className="text-lg leading-relaxed animate-slide-up delay-200">
+                      {aboutDescription}
+                    </p>
+                  )}
                 </div>
               )}
             </div>
@@ -370,11 +375,11 @@ export default function Home() {
                
                {/* Opening Hours */}
                <div className="animate-slide-up delay-300">
-                 <h4 className="text-xs sm:text-lg font-light mb-3 sm:mb-4">Aukioloajat</h4>
+                 <h4 className="text-xs sm:text-lg font-light mb-3 sm:mb-4">{t('contact.hours.title')}</h4>
                  <div className="space-y-1 text-xs sm:text-base font-light">
-                   <p>Pe 14-20</p>
-                   <p>La 11-20</p>
-                   <p>Su 11-18</p>
+                   <p>{t('contact.hours.friday')}</p>
+                   <p>{t('contact.hours.saturday')}</p>
+                   <p>{t('contact.hours.sunday')}</p>
                  </div>
                </div>
              
@@ -457,8 +462,10 @@ export default function Home() {
        <footer className="py-8 bg-black text-white text-center">
          <div className="space-y-3">
            {isLoaded && <p className="text-sm tracking-wide animate-slide-up">{t('footer.copyright')}</p>}
-           <div className="text-xs space-x-4">
-             <Link href="/tietosuojaseloste" className="underline hover:text-[#EEC156]">Tietosuojaseloste</Link>
+          <div className="text-xs space-x-4">
+            <Link href="/tietosuojaseloste" className="underline hover:text-[#EEC156]">
+              {isLoaded ? t('legal.link') : 'Tietosuojaseloste'}
+            </Link>
            </div>
          </div>
       </footer>
@@ -503,7 +510,7 @@ export default function Home() {
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
                     <polyline points="22 4 12 14.01 9 11.01"/>
                   </svg>
-                  <span className="font-light">Kiitos yhteydenotosta, vastaamme mahdollisimman pian!</span>
+                  <span className="font-light">{t('contact.successMessage')}</span>
                 </div>
                 <button
                   onClick={() => { setIsContactModalOpen(false); setSubmitSuccess(false); }}
@@ -515,7 +522,7 @@ export default function Home() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-light mb-1">Nimi</label>
+                  <label htmlFor="name" className="block text-sm font-light mb-1">{t('contact.form.name')}</label>
                   <input
                     type="text"
                     id="name"
@@ -528,7 +535,7 @@ export default function Home() {
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-light mb-1">Sähköposti</label>
+                  <label htmlFor="email" className="block text-sm font-light mb-1">{t('contact.form.email')}</label>
                   <input
                     type="email"
                     id="email"
@@ -541,7 +548,7 @@ export default function Home() {
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-light mb-1">Viesti</label>
+                  <label htmlFor="message" className="block text-sm font-light mb-1">{t('contact.form.message')}</label>
                   <textarea
                     id="message"
                     name="message"

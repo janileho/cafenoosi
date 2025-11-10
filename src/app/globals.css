@@ -55,7 +55,7 @@ body {
 
 .animate-slide-up {
   opacity: 0;
-  animation: slideUp 700ms ease-out forwards;
+  animation: slideUp 900ms ease-out forwards;
 }
 
 /* Stagger helpers */
