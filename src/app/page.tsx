@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "@/contexts/TranslationContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const { t, language, setLanguage, isLoaded } = useTranslation();
@@ -17,6 +17,41 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const aboutDescription = isLoaded ? t('about.description') : '';
+
+  useEffect(() => {
+    if (!isLoaded || typeof window === 'undefined') return;
+
+    const elements = Array.from(
+      document.querySelectorAll<HTMLElement>('.animate-slide-up')
+    );
+
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            el.classList.add('is-visible');
+            observer.unobserve(el);
+          }
+        });
+      },
+      {
+        root: null,
+        threshold: 0.12,
+        rootMargin: '0px 0px -5% 0px',
+      }
+    );
+
+    elements.forEach((el) => {
+      if (!el.classList.contains('is-visible')) {
+        observer.observe(el);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, [isLoaded, isContactModalOpen, submitSuccess, isMobileMenuOpen]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -72,7 +107,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2 sm:py-4">
           <div className="flex items-center justify-between">
             {/* Left side - Brand logo */}
-            <Link href="/" className="flex items-center" aria-label="Home">
+            <Link href="/" className="flex items-center animate-slide-up is-visible" aria-label="Home">
               <Image
                 src="/cafe_noosi_topbar.JPG"
                 alt="Cafe Nöösi"
@@ -117,8 +152,17 @@ export default function Home() {
               <button 
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="md:hidden text-gray-600 hover:text-[#A64845] transition-colors"
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-menu"
               >
-                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 ${
+                    isMobileMenuOpen ? 'rotate-90' : ''
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
@@ -126,33 +170,39 @@ export default function Home() {
           </div>
           
           {/* Mobile Menu */}
-          {isMobileMenuOpen && isLoaded && (
-            <div className="md:hidden mt-4 pb-4 border-t border-gray-200">
-              <nav className="flex flex-col space-y-4 pt-4 text-right">
-                <a 
-                  href="#about" 
-                  className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {t('navigation.about')}
-                </a>
-                    <a 
-                      href="#gallery" 
-                      className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {t('navigation.gallery')}
-                    </a>
-          <a
-                  href="#contact" 
-                  className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {t('navigation.contact')}
-                </a>
-              </nav>
-            </div>
-          )}
+          <div
+            id="mobile-menu"
+            className={`md:hidden border-t border-gray-200 overflow-hidden transition-all duration-300 ease-out ${
+              isMobileMenuOpen && isLoaded
+                ? 'opacity-100 translate-y-0 max-h-64 pb-4'
+                : 'opacity-0 -translate-y-3 max-h-0 pointer-events-none'
+            }`}
+            aria-hidden={!isMobileMenuOpen}
+          >
+            <nav className="flex flex-col space-y-4 pt-4 text-right">
+              <a
+                href="#about"
+                className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors animate-slide-up"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t('navigation.about')}
+              </a>
+              <a
+                href="#gallery"
+                className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors animate-slide-up delay-100"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t('navigation.gallery')}
+              </a>
+              <a
+                href="#contact"
+                className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors animate-slide-up delay-200"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t('navigation.contact')}
+              </a>
+            </nav>
+          </div>
         </div>
       </header>
 
@@ -207,7 +257,7 @@ export default function Home() {
               </div>
             )}
             
-            <div className="w-full relative overflow-hidden h-[200px]">
+            <div className="w-full relative overflow-hidden h-[200px] animate-slide-up">
               <Image
                 src="/cafe-noosi-tiski.jpg"
                 alt="Cafe Noosi Counter"
@@ -236,7 +286,7 @@ export default function Home() {
             </div>
             
             {/* Right side - Image */}
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center animate-slide-up">
               <div className="aspect-square relative overflow-hidden w-full max-w-md">
                 <Image
                   src="/cafe-noosi-tiski.jpg"
@@ -265,7 +315,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-[1.618fr_1fr] gap-2 sm:gap-4 h-[200px] sm:h-[500px]">
               {/* Left side - Large square (34) */}
-              <div>
+              <div className="animate-slide-up">
                 <div className="aspect-square relative overflow-hidden">
                   <Image
                     src="/cafe-noosi-kukka.jpg"
@@ -278,7 +328,7 @@ export default function Home() {
               </div>
               
               {/* Right side - Nested grid */}
-              <div className="grid grid-rows-[0.62fr_0.38fr] gap-1 sm:gap-2">
+              <div className="grid grid-rows-[0.62fr_0.38fr] gap-1 sm:gap-2 animate-slide-up delay-200">
                 {/* Top right - Medium square (21) */}
                 <div>
                   <div className="aspect-square relative overflow-hidden">
@@ -324,7 +374,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-[1fr_1.618fr] gap-2 sm:gap-4 h-[200px] sm:h-[500px]">
             {/* Left column - Creme image (smaller width) */}
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden animate-slide-up">
               <Image
                 src="/noosi-creme.jpg"
                 alt="Cafe Noosi Creme Dessert"
@@ -335,7 +385,7 @@ export default function Home() {
             </div>
             
             {/* Right column - Bread image (bigger width) */}
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden animate-slide-up delay-200">
               <Image
                 src="/noosi-bread.jpg"
                 alt="Cafe Noosi Bread"
@@ -384,7 +434,7 @@ export default function Home() {
                </div>
              
              {/* Big Logo */}
-             <div className="py-6 sm:py-8">
+             <div className="py-6 sm:py-8 animate-slide-up">
                <div className="w-40 h-40 sm:w-64 sm:h-64 mx-auto relative">
          <Image
                    src="/noosi_logo_big.JPG"
@@ -429,7 +479,7 @@ export default function Home() {
               <div className="animate-slide-up delay-600">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 max-w-6xl mx-auto">
                   {/* Dog Icon */}
-                  <div className="w-full sm:px-2 md:px-4">
+                  <div className="w-full sm:px-2 md:px-4 animate-slide-up">
                     <Image
                       src="/koira.png"
                       alt="Dog Friendly"
@@ -441,7 +491,7 @@ export default function Home() {
                   </div>
                   
                   {/* Payment Icon */}
-                  <div className="w-full sm:px-2 md:px-4">
+                  <div className="w-full sm:px-2 md:px-4 animate-slide-up delay-200">
                     <Image
                       src="/korttimaksut.png"
                       alt="Card Payments"

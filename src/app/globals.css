@@ -13,6 +13,7 @@
   --foreground: #000000;
   --accent: #A64845; /* Custom accent color */
   --golden-ratio: 1.618;
+  scroll-behavior: smooth;
 }
 
 @theme inline {
@@ -55,21 +56,32 @@ body {
 
 .animate-slide-up {
   opacity: 0;
-  animation: slideUp 900ms ease-out forwards;
+  transform: translateY(12px);
+  transition: opacity 420ms ease-out, transform 420ms ease-out;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.animate-slide-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Stagger helpers */
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
+.delay-100 { --reveal-delay: 100ms; }
+.delay-200 { --reveal-delay: 200ms; }
+.delay-300 { --reveal-delay: 300ms; }
+.delay-400 { --reveal-delay: 400ms; }
+.delay-500 { --reveal-delay: 500ms; }
+.delay-600 { --reveal-delay: 600ms; }
 
 /* Respect user preference */
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in,
   .animate-slide-up {
     animation: none !important;
+    transition: none !important;
     opacity: 1 !important;
+    transform: none !important;
   }
 }
