@@ -123,7 +123,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/noosi_logo.JPG" type="image/jpeg" />
         <link rel="shortcut icon" href="/noosi_logo.JPG" type="image/jpeg" />
-        <link rel="preload" as="image" href="/cafe-noosi-hero.jpg" fetchpriority="high" />
+        <link rel="preload" as="image" href="/cafe-noosi-hero.jpg" fetchPriority="high" />
         <link rel="preload" as="image" href="/noosi_naama_logo_transp.png" />
         <link rel="alternate" hrefLang="x-default" href={`${siteUrl}/`} />
         <link rel="alternate" hrefLang="fi-FI" href={`${siteUrl}/`} />
