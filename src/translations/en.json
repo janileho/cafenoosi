@@ -1,37 +1,18 @@
 {
   "navigation": {
     "about": "About",
-    "menu": "Menu",
+    "gallery": "Gallery",
     "contact": "Contact"
   },
   "hero": {
-    "title": "1960s-70s Modernism",
-    "subtitle": "A Tampere café channeling 1960s-70s modernism and Bauhaus functionalism. Welcome for coffee or wine, brulee or kekkeruusi, sandwich or traditional pöperö with a new wave take.",
-    "english": "A Tampere café channeling 1960s-70s modernism and Bauhaus functionalism. Welcome for coffee or wine, brulee or kekkeruusi, sandwich or traditional pöperö with a new wave take."
+    "tagline": "Cafe with a pinch of Bauhaus"
   },
   "about": {
-    "title": "IHMISTEN JA MODERNISMIN LINJOJEN KOHTAUSPAIKKA",
-    "description": "Cafe Noosi embodies the clean lines and functional beauty of 1960s-70s modernism, drawing inspiration from Bauhaus principles of form following function.",
-    "coffee": "COFFEE",
-    "coffeeDesc": "Carefully selected beans, expertly prepared",
-    "wine": "WINE",
-    "wineDesc": "Curated selection of quality wines",
-    "food": "FOOD",
-    "foodDesc": "Traditional with a modern twist",
-    "atmosphere": "ATMOSPHERE",
-    "atmosphereDesc": "Clean, functional, beautiful"
+    "title": "INTERSECTION OF PEOPLE AND MODERNISTIC LINES",
+    "description": "Welcome for coffee or wine, brulee or kekkeruusi, sandwich or traditional pöperö with a new wave take."
   },
   "gallery": {
     "title": "SPACE & DESIGN"
-  },
-  "food": {
-    "title": "FOOD & DRINKS",
-    "subtitle": "TRADITIONAL WITH A MODERN TWIST",
-    "description": "Experience the perfect blend of traditional Finnish flavors with contemporary presentation. From freshly baked bread to delicate crème desserts, each dish reflects our commitment to quality and design.",
-    "bread": "BREAD",
-    "breadDesc": "Freshly baked daily",
-    "desserts": "DESSERTS",
-    "dessertsDesc": "Delicate crème specialties"
   },
   "contact": {
     "title": "VISIT US",
@@ -39,14 +20,33 @@
     "city": "33100 TAMPERE",
     "instagram": "Instagram",
     "map": "Map",
+    "contact": "Contact",
     "send": "Send",
     "sending": "Sending...",
     "success": "Thanks!",
+    "successMessage": "Thanks for reaching out, we'll get back to you soon!",
     "error": "Failed to send the message. Please try again.",
     "close": "Close",
-    "contact": "Contact"
+    "networkError": "Network error. Please check your connection and try again.",
+    "hours": {
+      "title": "Opening hours",
+      "friday": "Fri 14-20",
+      "saturday": "Sat 11-20",
+      "sunday": "Sun 11-18"
+    },
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message"
+    }
   },
   "footer": {
-    "copyright": "© 2024 CAFE NOOSI"
+    "copyright": "© 2025 CAFE NOOSI"
+  },
+  "legal": {
+    "privacyTitle": "Privacy Notice",
+    "updated": "Updated",
+    "back": "Back to home",
+    "link": "Privacy notice"
   }
 }

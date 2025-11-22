@@ -1,37 +1,18 @@
 {
   "navigation": {
     "about": "Tietoa",
-    "menu": "Menu",
+    "gallery": "Galleria",
     "contact": "Yhteystiedot"
   },
   "hero": {
-    "title": "1960-70 -lukujen modernismia",
-    "subtitle": "Bauhausin funktionalismia kanavoiva tamperelaiskahvila. Tervetuloa kahville tai viinille, bryleelle tai kekkeruusille, leivälle tai uuden aallon pöperöille.",
-    "english": "A Tampere café channeling 1960s-70s modernism and Bauhaus functionalism. Welcome for coffee or wine, brulee or kekkeruusi, sandwich or traditional pöperö with a new wave take."
+    "tagline": "Tamperelaiskahvila hyppysellisellä Bauhausia"
   },
   "about": {
     "title": "IHMISTEN JA MODERNISMIN LINJOJEN KOHTAUSPAIKKA",
-    "description": "Cafe Noosi ilmentää 1960-70 -lukujen modernismin puhtaita linjoja ja toiminnallista kauneutta, ammentaen inspiraatiota Bauhausin muodon seuraa toimintoa -periaatteesta.",
-    "coffee": "KAHVI",
-    "coffeeDesc": "Huolellisesti valitut pavut, asiantuntevasti valmistettu",
-    "wine": "VIINI",
-    "wineDesc": "Valikoitu laadukkaiden viinien kokoelma",
-    "food": "RUOKA",
-    "foodDesc": "Perinteinen modernilla twistillä",
-    "atmosphere": "TUNNELMA",
-    "atmosphereDesc": "Puhdas, toiminnallinen, kaunis"
+    "description": "Tervetuloa kahville tai viinille, bryleelle tai kekkeruusille, leivälle tai uuden aallon pöperöille."
   },
   "gallery": {
     "title": "TILA & MUOTOILU"
-  },
-  "food": {
-    "title": "RUOKA & JUOMAT",
-    "subtitle": "PERINTEINEN MODERNILLA TWISTILLÄ",
-    "description": "Koe täydellinen yhdistelmä perinteisiä suomalaisia makuja ja nykyaikaista esitystä. Tuoreesta leivästä herkkuihin crème-jälkiruokiin, jokainen annos heijastaa sitoutumistamme laatuun ja muotoiluun.",
-    "bread": "LEIPÄ",
-    "breadDesc": "Tuoreena leivottu päivittäin",
-    "desserts": "JÄLKIRUOAT",
-    "dessertsDesc": "Herkulliset crème-erikoisuudet"
   },
   "contact": {
     "title": "TULE KÄYMÄÄN",
@@ -39,14 +20,33 @@
     "city": "33100 TAMPERE",
     "instagram": "Instagram",
     "map": "Kartta",
+    "contact": "Ota yhteyttä",
     "send": "Lähetä",
     "sending": "Lähetetään...",
     "success": "Kiitos!",
+    "successMessage": "Kiitos yhteydenotosta, vastaamme mahdollisimman pian!",
     "error": "Viestin lähetys epäonnistui. Yritä uudelleen.",
     "close": "Sulje",
-    "contact": "Ota yhteyttä"
+    "networkError": "Verkkovirhe. Tarkista internetyhteytesi ja yritä uudelleen.",
+    "hours": {
+      "title": "Aukioloajat",
+      "friday": "Pe 14-20",
+      "saturday": "La 11-20",
+      "sunday": "Su 11-18"
+    },
+    "form": {
+      "name": "Nimi",
+      "email": "Sähköposti",
+      "message": "Viesti"
+    }
   },
   "footer": {
-    "copyright": "© 2024 CAFE NOOSI"
+    "copyright": "© 2025 CAFE NOOSI"
+  },
+  "legal": {
+    "privacyTitle": "Tietosuojaseloste",
+    "updated": "Päivitetty",
+    "back": "Takaisin etusivulle",
+    "link": "Tietosuojaseloste"
   }
 }

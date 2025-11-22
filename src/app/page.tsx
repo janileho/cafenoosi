@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "@/contexts/TranslationContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const { t, language, setLanguage, isLoaded } = useTranslation();
@@ -16,6 +16,42 @@ export default function Home() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const aboutDescription = isLoaded ? t('about.description') : '';
+
+  useEffect(() => {
+    if (!isLoaded || typeof window === 'undefined') return;
+
+    const elements = Array.from(
+      document.querySelectorAll<HTMLElement>('.animate-slide-up')
+    );
+
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            el.classList.add('is-visible');
+            observer.unobserve(el);
+          }
+        });
+      },
+      {
+        root: null,
+        threshold: 0.12,
+        rootMargin: '0px 0px -5% 0px',
+      }
+    );
+
+    elements.forEach((el) => {
+      if (!el.classList.contains('is-visible')) {
+        observer.observe(el);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, [isLoaded, isContactModalOpen, submitSuccess, isMobileMenuOpen]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -59,7 +95,7 @@ export default function Home() {
       }
     } catch (error) {
       console.error('Network error:', error);
-      alert('Verkkovirhe. Tarkista internetyhteytesi ja yritä uudelleen.');
+      alert(t('contact.networkError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -71,7 +107,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2 sm:py-4">
           <div className="flex items-center justify-between">
             {/* Left side - Brand logo */}
-            <Link href="/" className="flex items-center" aria-label="Home">
+            <Link href="/" className="flex items-center animate-slide-up is-visible" aria-label="Home">
               <Image
                 src="/cafe_noosi_topbar.JPG"
                 alt="Cafe Nöösi"
@@ -116,8 +152,17 @@ export default function Home() {
               <button 
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="md:hidden text-gray-600 hover:text-[#A64845] transition-colors"
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-menu"
               >
-                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 ${
+                    isMobileMenuOpen ? 'rotate-90' : ''
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
@@ -125,33 +170,39 @@ export default function Home() {
           </div>
           
           {/* Mobile Menu */}
-          {isMobileMenuOpen && isLoaded && (
-            <div className="md:hidden mt-4 pb-4 border-t border-gray-200">
-              <nav className="flex flex-col space-y-4 pt-4 text-right">
-                <a 
-                  href="#about" 
-                  className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {t('navigation.about')}
-                </a>
-                    <a 
-                      href="#gallery" 
-                      className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {t('navigation.gallery')}
-                    </a>
-          <a
-                  href="#contact" 
-                  className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {t('navigation.contact')}
-                </a>
-              </nav>
-            </div>
-          )}
+          <div
+            id="mobile-menu"
+            className={`md:hidden border-t border-gray-200 overflow-hidden transition-all duration-300 ease-out ${
+              isMobileMenuOpen && isLoaded
+                ? 'opacity-100 translate-y-0 max-h-64 pb-4'
+                : 'opacity-0 -translate-y-3 max-h-0 pointer-events-none'
+            }`}
+            aria-hidden={!isMobileMenuOpen}
+          >
+            <nav className="flex flex-col space-y-4 pt-4 text-right">
+              <a
+                href="#about"
+                className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors animate-slide-up"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t('navigation.about')}
+              </a>
+              <a
+                href="#gallery"
+                className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors animate-slide-up delay-100"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t('navigation.gallery')}
+              </a>
+              <a
+                href="#contact"
+                className="text-sm uppercase tracking-wider hover:text-[#A64845] transition-colors animate-slide-up delay-200"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t('navigation.contact')}
+              </a>
+            </nav>
+          </div>
         </div>
       </header>
 
@@ -174,15 +225,15 @@ export default function Home() {
                  <Image
                    src="/noosi_naama_logo_transp.png"
                    alt="Cafe Nöösi Logo"
-                   width={300}
-                   height={300}
+                   width={540}
+                   height={540}
                    priority
-                   className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 mx-auto object-contain"
+                   className="w-48 h-48 sm:w-72 sm:h-72 md:w-[28rem] md:h-[28rem] mx-auto object-contain"
                  />
                </div>
                 <p className="text-xs sm:text-lg md:text-xl font-light leading-tight max-w-2xl md:max-w-3xl mx-auto animate-slide-up delay-200" style={{ fontSize: '0.7rem' }}>
-                   <span className="md:hidden italic">Tamperelaiskahvila hyppysellisellä bauhausia</span>
-                   <span className="hidden md:inline text-lg italic">Tamperelaiskahvila hyppysellisellä bauhausia</span>
+                   <span className="md:hidden">{t('hero.tagline')}</span>
+                   <span className="hidden md:inline text-lg">{t('hero.tagline')}</span>
                  </p>
               </div>
            )}
@@ -198,13 +249,15 @@ export default function Home() {
               <div className="max-w-[70%]">
                 <h3 className="text-base font-light mb-2 tracking-wide animate-slide-up">{t('about.title')}</h3>
                 <div className="w-10 h-1 bg-[#A64845] mb-2 animate-slide-up delay-100"></div>
-                <p className="leading-tight animate-slide-up delay-200" style={{ fontSize: '0.65rem' }}>
-                  {t('about.description')}
-                </p>
+                {aboutDescription && aboutDescription !== 'about.description' && (
+                  <p className="leading-tight animate-slide-up delay-200" style={{ fontSize: '0.65rem' }}>
+                    {aboutDescription}
+                  </p>
+                )}
               </div>
             )}
             
-            <div className="w-full relative overflow-hidden h-[200px]">
+            <div className="w-full relative overflow-hidden h-[200px] animate-slide-up">
               <Image
                 src="/cafe-noosi-tiski.jpg"
                 alt="Cafe Noosi Counter"
@@ -223,15 +276,17 @@ export default function Home() {
                 <div>
                   <h3 className="text-3xl font-light mb-6 tracking-wide animate-slide-up">{t('about.title')}</h3>
                   <div className="w-24 h-1 bg-[#A64845] mb-8 animate-slide-up delay-100"></div>
-                  <p className="text-lg leading-relaxed animate-slide-up delay-200">
-                    {t('about.description')}
-                  </p>
+                  {aboutDescription && aboutDescription !== 'about.description' && (
+                    <p className="text-lg leading-relaxed animate-slide-up delay-200">
+                      {aboutDescription}
+                    </p>
+                  )}
                 </div>
               )}
             </div>
             
             {/* Right side - Image */}
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center animate-slide-up">
               <div className="aspect-square relative overflow-hidden w-full max-w-md">
                 <Image
                   src="/cafe-noosi-tiski.jpg"
@@ -260,7 +315,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-[1.618fr_1fr] gap-2 sm:gap-4 h-[200px] sm:h-[500px]">
               {/* Left side - Large square (34) */}
-              <div>
+              <div className="animate-slide-up">
                 <div className="aspect-square relative overflow-hidden">
                   <Image
                     src="/cafe-noosi-kukka.jpg"
@@ -273,7 +328,7 @@ export default function Home() {
               </div>
               
               {/* Right side - Nested grid */}
-              <div className="grid grid-rows-[0.62fr_0.38fr] gap-1 sm:gap-2">
+              <div className="grid grid-rows-[0.62fr_0.38fr] gap-1 sm:gap-2 animate-slide-up delay-200">
                 {/* Top right - Medium square (21) */}
                 <div>
                   <div className="aspect-square relative overflow-hidden">
@@ -319,7 +374,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-[1fr_1.618fr] gap-2 sm:gap-4 h-[200px] sm:h-[500px]">
             {/* Left column - Creme image (smaller width) */}
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden animate-slide-up">
               <Image
                 src="/noosi-creme.jpg"
                 alt="Cafe Noosi Creme Dessert"
@@ -330,7 +385,7 @@ export default function Home() {
             </div>
             
             {/* Right column - Bread image (bigger width) */}
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden animate-slide-up delay-200">
               <Image
                 src="/noosi-bread.jpg"
                 alt="Cafe Noosi Bread"
@@ -370,16 +425,16 @@ export default function Home() {
                
                {/* Opening Hours */}
                <div className="animate-slide-up delay-300">
-                 <h4 className="text-xs sm:text-lg font-light mb-3 sm:mb-4">Aukioloajat</h4>
+                 <h4 className="text-xs sm:text-lg font-light mb-3 sm:mb-4">{t('contact.hours.title')}</h4>
                  <div className="space-y-1 text-xs sm:text-base font-light">
-                   <p>Pe 14-20</p>
-                   <p>La 11-20</p>
-                   <p>Su 11-18</p>
+                   <p>{t('contact.hours.friday')}</p>
+                   <p>{t('contact.hours.saturday')}</p>
+                   <p>{t('contact.hours.sunday')}</p>
                  </div>
                </div>
              
              {/* Big Logo */}
-             <div className="py-6 sm:py-8">
+             <div className="py-6 sm:py-8 animate-slide-up">
                <div className="w-40 h-40 sm:w-64 sm:h-64 mx-auto relative">
          <Image
                    src="/noosi_logo_big.JPG"
@@ -424,7 +479,7 @@ export default function Home() {
               <div className="animate-slide-up delay-600">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 max-w-6xl mx-auto">
                   {/* Dog Icon */}
-                  <div className="w-full sm:px-2 md:px-4">
+                  <div className="w-full sm:px-2 md:px-4 animate-slide-up">
                     <Image
                       src="/koira.png"
                       alt="Dog Friendly"
@@ -436,7 +491,7 @@ export default function Home() {
                   </div>
                   
                   {/* Payment Icon */}
-                  <div className="w-full sm:px-2 md:px-4">
+                  <div className="w-full sm:px-2 md:px-4 animate-slide-up delay-200">
                     <Image
                       src="/korttimaksut.png"
                       alt="Card Payments"
@@ -457,8 +512,10 @@ export default function Home() {
        <footer className="py-8 bg-black text-white text-center">
          <div className="space-y-3">
            {isLoaded && <p className="text-sm tracking-wide animate-slide-up">{t('footer.copyright')}</p>}
-           <div className="text-xs space-x-4">
-             <Link href="/tietosuojaseloste" className="underline hover:text-[#EEC156]">Tietosuojaseloste</Link>
+          <div className="text-xs space-x-4">
+            <Link href="/tietosuojaseloste" className="underline hover:text-[#EEC156]">
+              {isLoaded ? t('legal.link') : 'Tietosuojaseloste'}
+            </Link>
            </div>
          </div>
       </footer>
@@ -503,7 +560,7 @@ export default function Home() {
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
                     <polyline points="22 4 12 14.01 9 11.01"/>
                   </svg>
-                  <span className="font-light">Kiitos yhteydenotosta, vastaamme mahdollisimman pian!</span>
+                  <span className="font-light">{t('contact.successMessage')}</span>
                 </div>
                 <button
                   onClick={() => { setIsContactModalOpen(false); setSubmitSuccess(false); }}
@@ -515,7 +572,7 @@ export default function Home() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-light mb-1">Nimi</label>
+                  <label htmlFor="name" className="block text-sm font-light mb-1">{t('contact.form.name')}</label>
                   <input
                     type="text"
                     id="name"
@@ -528,7 +585,7 @@ export default function Home() {
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-light mb-1">Sähköposti</label>
+                  <label htmlFor="email" className="block text-sm font-light mb-1">{t('contact.form.email')}</label>
                   <input
                     type="email"
                     id="email"
@@ -541,7 +598,7 @@ export default function Home() {
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-light mb-1">Viesti</label>
+                  <label htmlFor="message" className="block text-sm font-light mb-1">{t('contact.form.message')}</label>
                   <textarea
                     id="message"
                     name="message"

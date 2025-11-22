@@ -1,38 +1,18 @@
 {
   "navigation": {
     "about": "Tietoa",
-    "menu": "Menu",
     "gallery": "Galleria",
     "contact": "Yhteystiedot"
   },
   "hero": {
-    "title": "1960-70 -lukujen modernismia",
-    "subtitle": "1960-70 -lukujen modernismia sekä bauhausin funktionalismia kanavoiva tamperelaiskahvila",
-    "english": "A Tampere café channeling 1960s-70s modernism and Bauhaus functionalism. Welcome for coffee or wine, brulee or kekkeruusi, sandwich or traditional pöperö with a new wave take."
+    "tagline": "Tamperelaiskahvila hyppysellisellä Bauhausia"
   },
   "about": {
-    "title": "MODERNISMIA & FUNKTIONALISMIA",
-    "description": "Tervetuloa kahville tai viinille, bryleelle tai kekkeruusille, leivälle tai uuden aallon pöperöille.",
-    "coffee": "KAHVI",
-    "coffeeDesc": "Hyvä kahvi",
-    "wine": "VIINI",
-    "wineDesc": "Viiniä tarjolla",
-    "food": "RUOKA",
-    "foodDesc": "Ruokaa ja leipää",
-    "atmosphere": "TUNNELMA",
-    "atmosphereDesc": "Rauhallinen ympäristö"
+    "title": "IHMISTEN JA MODERNISMIN LINJOJEN KOHTAUSPAIKKA",
+    "description": "Tervetuloa kahville tai viinille, bryleelle tai kekkeruusille, leivälle tai uuden aallon pöperöille."
   },
   "gallery": {
-    "title": "GALLERIA"
-  },
-  "food": {
-    "title": "RUOKA & JUOMAT",
-    "subtitle": "PERINTEINEN MODERNILLA TWISTILLÄ",
-    "description": "Tuore leipä ja herkulliset jälkiruoat.",
-    "bread": "LEIPÄ",
-    "breadDesc": "Tuore leipä",
-    "desserts": "JÄLKIRUOAT",
-    "dessertsDesc": "Herkulliset jälkiruoat"
+    "title": "TILA & MUOTOILU"
   },
   "contact": {
     "title": "TULE KÄYMÄÄN",
@@ -40,12 +20,25 @@
     "city": "33100 TAMPERE",
     "instagram": "Instagram",
     "map": "Kartta",
+    "contact": "Ota yhteyttä",
     "send": "Lähetä",
     "sending": "Lähetetään...",
     "success": "Kiitos!",
+    "successMessage": "Kiitos yhteydenotosta, vastaamme mahdollisimman pian!",
     "error": "Viestin lähetys epäonnistui. Yritä uudelleen.",
     "close": "Sulje",
-    "contact": "Ota yhteyttä"
+    "networkError": "Verkkovirhe. Tarkista internetyhteytesi ja yritä uudelleen.",
+    "hours": {
+      "title": "Aukioloajat",
+      "friday": "Pe 14-20",
+      "saturday": "La 11-20",
+      "sunday": "Su 11-18"
+    },
+    "form": {
+      "name": "Nimi",
+      "email": "Sähköposti",
+      "message": "Viesti"
+    }
   },
   "footer": {
     "copyright": "© 2025 CAFE NOOSI"
@@ -53,6 +46,7 @@
   "legal": {
     "privacyTitle": "Tietosuojaseloste",
     "updated": "Päivitetty",
-    "back": "Takaisin etusivulle"
+    "back": "Takaisin etusivulle",
+    "link": "Tietosuojaseloste"
   }
 }
