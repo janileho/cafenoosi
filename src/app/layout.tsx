@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TranslationProvider } from "@/contexts/TranslationContext";
+import { Analytics } from "@vercel/analytics/next";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://cafenoosi.fi";
 
@@ -138,6 +139,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <TranslationProvider>{children}</TranslationProvider>
+        <Analytics />
       </body>
     </html>
   );
